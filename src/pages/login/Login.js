@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import useAuth from '../../hooks/useAuth';
-import styles from './Login.module.css'; 
+import './Login.css'; 
 
 const API_URL = 'http://localhost:3001';
 
@@ -45,14 +45,15 @@ function Login() {
       })
       .then(response => response.json()) 
       .then(response => {
-        console.log(response)
+        console.log('hello', response)
         // const accessToken = response?.data?.accessToken;
         // const roles = response?.data?.roles;
-        setAuth({ user, pwd, roles: [2001], 'accessToken': '123' });
-        // navigate(from, { replace: true });
+        setAuth({ user, pwd, roles: [2001], 'data': response.player });
         setUser('');
         setPwd('');
-        navigate(`/games/`);
+        // navigate(`/games/`);
+        navigate(from, { replace: true });
+
       })
       .catch(err => {
         // alert('Incorrect credentials')
@@ -61,27 +62,46 @@ function Login() {
   }
 
   return(
-    <section>
+    <section className="login ui grid centered">
       <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-      <h1>Sign In</h1>
-      <form className={styles.login} onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" placeholder="Login" ref={userRef} autoComplete="off" onChange={(e) => setUser(e.target.value)} value={user} required/>
+      {/* <h1>Sign In</h1> */}
+
+      
+      
+      <form className="login fields" onSubmit={handleSubmit}>
+
+        <div className="field">
+          <div className="ui icon input">
+            {/* <label htmlFor="username">Username:</label> */}
+            <input type="text" id="username" placeholder="Username" ref={userRef} autoComplete="off" onChange={(e) => setUser(e.target.value)} value={user} required/>
+            <i className="user icon"></i>
+          </div>
+        </div>
+        
+
+        <div className="field">
+          <div className="ui icon input">
+            {/* <label htmlFor="password">Password:</label> */}
+            <input
+                type="password"
+                id="password"
+                onChange={(e) => setPwd(e.target.value)}
+                value={pwd}
+                required
+            />
+            <i className="lock icon"></i>
+
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-          />
-        </div>
 
-        <button type="submit">Login</button>
+        <div className="field">
+          <div className="ui icon input">
+              <input type="submit" value="Login"/>
+              {/* <button type="submit">Login</button> */}
+              <i className="right chevron icon"></i>
+          </div>
+        </div>
       </form>
     </section>
     

@@ -1,0 +1,10 @@
+.gameList {
+  margin: 10px;
+  border: 1px solid grey;
+}
+
+.games {
+  display: flex;
+  background-color: white;
+  padding: 10px;
+}
