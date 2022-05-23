@@ -1,6 +1,10 @@
 import styles from './Layout.css'; 
+import { useLocation } from 'react-router-dom'
 
 function Layout(props) {
+  const location = useLocation();
+  console.log(location.pathname);
+
   return(
     <div>
       <div className="ui one column center aligned page grid">
@@ -8,7 +12,7 @@ function Layout(props) {
             <img src={'../images/logo.svg'} alt="logo"/>
         </div>
       </div>
-      <div className="main container">
+      <div className={location.pathname !== '/login' ? 'main container' : ''}>
         {props.children}
       </div>      
     </div>

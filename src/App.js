@@ -1,8 +1,6 @@
-// import logo from './logo.svg';
 import './App.css';
 import { Routes, Route, Link } from 'react-router-dom';
 
-import Header from './components/header/Header';
 import Layout from './components/layout/Layout';
 import Login from './pages/login/Login';
 import Games from './pages/games/Games';
@@ -12,7 +10,6 @@ import NotFound from './pages/not-found/NotFound';
 import RequireAuth from './components/require-auth/RequireAuth';
 import Unauthorized from './pages/unauthorized/Unauthorized';
 import { AuthProvider } from './context/AuthProvider';
-import { BrowserRouter } from 'react-router-dom';
 
 const ROLES = {
   User: 2001,
@@ -21,12 +18,10 @@ const ROLES = {
 };
 
 function App() {
-  console.log(ROLES.User);
   return (
     <main className='App'>
       <Layout>
         <AuthProvider>
-          {/* <BrowserRouter> */}
             <Routes>
               {/* public routes */}
               <Route path='login' element={<Login />} />
@@ -42,7 +37,6 @@ function App() {
               {/* catch all */}
               <Route path='*' element={<NotFound />} />
             </Routes>
-          {/* </BrowserRouter> */}
         </AuthProvider>
       </Layout>
     </main>

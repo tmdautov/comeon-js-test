@@ -33,8 +33,6 @@ function Games() {
   }
 
   function changeCategories(id) {
-    console.log(id);
-
     filteredGames = games.filter((game) => {
       return game.categoryIds.includes(id);
     });

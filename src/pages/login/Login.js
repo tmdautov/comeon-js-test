@@ -1,14 +1,10 @@
-import { useRef, useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import useAuth from '../../hooks/useAuth';
 import { login }  from '../../services/authService';
 
 import './Login.css';
-
-
-
-const API_URL = 'http://localhost:3001';
 
 function Login() {
   const { setAuth } = useAuth();
@@ -35,22 +31,19 @@ function Login() {
         navigate(from, { replace: true });
       })
       .catch((err) => {
-        alert('Incorrect credentials')
-        console.log(err);
+        setErrMsg('Incorrect credentials or server is not available. Please try again');
       });
   }
 
   return (
     <section className='login ui grid centered'>
-      <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live='assertive'>
+      <p className={errMsg ? 'errmsg' : 'offscreen'} aria-live='assertive'>
         {errMsg}
       </p>
-      {/* <h1>Sign In</h1> */}
 
       <form className='login fields' onSubmit={handleSubmit}>
         <div className='field'>
           <div className='ui icon input'>
-            {/* <label htmlFor="username">Username:</label> */}
             <input
               type='text'
               id='username'
@@ -67,7 +60,6 @@ function Login() {
 
         <div className='field'>
           <div className='ui icon input'>
-            {/* <label htmlFor="password">Password:</label> */}
             <input type='password' id='password' onChange={(e) => setPwd(e.target.value)} value={pwd} required />
             <i className='lock icon'></i>
           </div>
@@ -76,7 +68,6 @@ function Login() {
         <div className='field'>
           <div className='ui icon input'>
             <input type='submit' value='Login' />
-            {/* <button type="submit">Login</button> */}
             <i className='right chevron icon'></i>
           </div>
         </div>
