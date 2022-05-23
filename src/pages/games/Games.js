@@ -3,6 +3,10 @@ import useAuth from '../../hooks/useAuth';
 import styles from './Games.css';
 import { Link } from 'react-router-dom';
 
+import { logout }  from '../../services/authService';
+import {getGameList, getCategoyList}  from '../../services/gameService';
+
+
 function Games() {
   const { auth, setAuth } = useAuth();
   let [games, setGames] = useState([]);
@@ -10,23 +14,22 @@ function Games() {
   let [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/games')
-      .then((response) => response.json())
-      .then((data) => {
-        setGames(data);
-      });
+    getGameList().then((data) => {
+      setGames(data)
+      setFilteredGames(data);
+    });
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/categories')
-      .then((response) => response.json())
-      .then((data) => {
-        setCategories(data);
-      });
+    getCategoyList().then(data => {
+      setCategories(data);
+    })
   }, []);
 
-  function logout() {
-    setAuth(null);
+  function onLogoutClick() {
+    logout().then(data => {
+      setAuth(null);
+    })
   }
 
   function changeCategories(id) {
@@ -61,7 +64,7 @@ function Games() {
               </div>
             </div>
           </div>
-          <div className='logout ui left floated secondary button inverted' onClick={logout}>
+          <div className='logout ui left floated secondary button inverted' onClick={onLogoutClick}>
             <i className='left chevron icon'></i>
             <span>Log Out</span>
           </div>
