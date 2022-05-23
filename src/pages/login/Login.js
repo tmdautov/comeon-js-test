@@ -25,7 +25,7 @@ function Login() {
 
     login(user, pwd)
       .then((response) => {
-        setAuth({ user, pwd, roles: [2001], data: response.player });
+        setAuth({ user, pwd, data: response.player });
         setUser('');
         setPwd('');
         navigate(from, { replace: true });

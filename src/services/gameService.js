@@ -5,7 +5,6 @@ export function getGameList() {
     .then((response) => response.json());
 }
 
-
 export function getCategoyList() {
   return fetch(`${API_HOST}/categories`)
     .then((response) => response.json());

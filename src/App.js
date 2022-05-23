@@ -11,12 +11,6 @@ import RequireAuth from './components/require-auth/RequireAuth';
 import Unauthorized from './pages/unauthorized/Unauthorized';
 import { AuthProvider } from './context/AuthProvider';
 
-const ROLES = {
-  User: 2001,
-  Editor: 1984,
-  Admin: 5150,
-};
-
 function App() {
   return (
     <main className='App'>
@@ -28,7 +22,7 @@ function App() {
               <Route path='unauthorized' element={<Unauthorized />} />
 
               {/* private routes */}
-              <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+              <Route element={<RequireAuth />}>
                 <Route path='/' element={<Games />} />
                 <Route path='/games' element={<Games />} />
                 <Route path='/game/:id' element={<Game />} />
